@@ -1,0 +1,53 @@
+################################ 开发环境 ################################
+
+server:
+  port: 8888
+
+spring:
+  devtools:
+    restart:
+      # 开启热部署(刷新加载)
+      enabled: true
+  http:
+    converters:
+      preferred-json-mapper: gson
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  gson:
+    #    default-property-inclusion: non_null
+    # JSON中时间的格式化样式
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialize-nulls: false
+    pretty-printing: true
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          # 负载均衡
+          enabled: true
+      routes:
+        - id: consumer-feign-sentinel-server-service
+          uri: lb://consumer-feign-sentinel-server-service
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+            - PreOAuth2GatewayFilter
+#        - id: uaa-server-service
+#          uri: lb://uaa-server-service
+#          predicates:
+#            - Path=/oauth/**
+#          filters:
+#            - StripPrefix=1
+
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # lb://uaa-server-service
+          jwk-set-uri: 'http://127.0.0.1:9896/.well-known/jwks.json'
+
+
+
+

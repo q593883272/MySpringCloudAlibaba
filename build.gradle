@@ -1,0 +1,198 @@
+buildscript {
+    ext {
+        junit_version = "4.12"
+        lombok_version = "1.18.10"
+        gson_version = "2.8.6"
+        sqlite_driver_version = "3.28.0"
+        mysql_driver_version = "8.0.18"
+        mybatis_spring_boot_version = "2.1.0"
+        mybatis_generator_version = "2.1.2"
+        mybatis_mapper_version = "4.1.5"
+        mybatis_mapper_spring_version = "2.1.5"
+        spring_security_oauth_version = "2.4.0.RELEASE"
+        spring_boot_admin_version = "2.1.6"
+        docker_plugin_version = '1.2'
+        spring_dependency_management_version = '1.0.8.RELEASE'
+        
+        //Dependency Management Version
+        spring_boot_version = "2.2.5.RELEASE"
+        spring_cloud_dependency_management_version = 'Hoxton.SR3'//2.1.3.RELEASE Greenwich.SR3 //2.2.0 Hoxton.SR3
+        spring_cloud_alibaba_dependency_management_version = '0.2.2.RELEASE'
+        alibaba_spring_cloud_dependency_management_version = '2.2.0.RELEASE'
+        
+    }
+
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+//        maven {
+//            url "https://127.0.0.1:8888/nexus/content/groups/xxx"
+//            credentials {
+//                username "$username"
+//                password "$password"
+//            }
+//        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:$spring_boot_version"
+        classpath "io.spring.gradle:dependency-management-plugin:$spring_dependency_management_version"
+//        classpath "gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:$mybatis_generator_version"
+        // https://mvnrepository.com/artifact/gradle.plugin.com.palantir.gradle.docker/gradle-docker
+//        classpath "se.transmode.gradle:gradle-docker:$docker_plugin_version"
+        classpath "gradle.plugin.org.sglahn:gradle-dockerfile-plugin:0.5"
+
+    }
+}
+
+//allprojects、subprojects
+subprojects {
+    apply plugin: "java"
+    apply plugin: "war"
+//    apply plugin: "docker"
+    apply plugin: "org.sglahn.gradle-dockerfile-plugin"
+    apply plugin: "org.springframework.boot"
+    apply plugin: "io.spring.dependency-management"
+//    apply plugin: "com.thinkimi.gradle.MybatisGenerator"
+
+    group 'com.raven.cloud'
+    version '1.0'
+
+    //Java版本
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    // Java编译的时候缺省状态下会因为中文字符而失败
+    [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+    //依赖仓库配置
+    repositories {
+        mavenLocal()
+        maven { url "https://maven.aliyun.com/repository/central" }
+        maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        mavenCentral()
+    }
+
+    //配置插件
+    configurations {
+        mybatisGenerator
+        developmentOnly
+        runtimeClasspath {
+            extendsFrom developmentOnly
+        }
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+
+    bootJar {
+        archiveName = project.name.concat('.jar')
+        version = '1.0'
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-dependencies:$spring_boot_version"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:$spring_cloud_dependency_management_version"
+            mavenBom "org.springframework.cloud:spring-cloud-alibaba-dependencies:$spring_cloud_alibaba_dependency_management_version"
+            mavenBom "com.alibaba.cloud:spring-cloud-alibaba-dependencies:$alibaba_spring_cloud_dependency_management_version"
+        }
+    }
+
+    dependencies {
+        implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+        ///////////////////////////////////////////////////////////////////////////
+        // Test
+        ///////////////////////////////////////////////////////////////////////////
+        testImplementation "junit:junit:$junit_version"
+        testImplementation "org.springframework.boot:spring-boot-starter-test:$spring_boot_version"
+        testAnnotationProcessor "org.projectlombok:lombok:$lombok_version"
+        testCompileOnly "org.projectlombok:lombok:$lombok_version"
+
+        ///////////////////////////////////////////////////////////////////////////
+        // Spring Boot
+        ///////////////////////////////////////////////////////////////////////////
+
+        implementation "org.springframework.boot:spring-boot-starter-aop"
+        
+        // Configuration Processor
+        compileOnly "org.springframework.boot:spring-boot-configuration-processor"
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+
+        // Devtools
+        developmentOnly "org.springframework.boot:spring-boot-devtools"
+//
+        // Actuator
+        implementation "org.springframework.boot:spring-boot-starter-actuator"
+
+        ///////////////////////////////////////////////////////////////////////////
+        // Spring Cloud
+        ///////////////////////////////////////////////////////////////////////////
+        // Cloud Starter
+        implementation "org.springframework.cloud:spring-cloud-starter"
+        // Cloud Context
+        implementation "org.springframework.cloud:spring-cloud-context"
+
+        //Nacos
+        implementation "org.springframework.cloud:spring-cloud-starter-alibaba-nacos-discovery"
+        implementation "org.springframework.cloud:spring-cloud-starter-alibaba-nacos-config"
+
+        //Sentinel
+//        implementation "org.springframework.cloud:spring-cloud-starter-alibaba-sentinel"
+
+
+        ///////////////////////////////////////////////////////////////////////////
+        // Data
+        ///////////////////////////////////////////////////////////////////////////
+        //MyBatis
+//        implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatis_spring_boot_version"
+//        implementation "tk.mybatis:mapper-spring-boot-starter:$mybatis_mapper_spring_version"
+        //MySQL
+        implementation "mysql:mysql-connector-java:$mysql_driver_version"
+        //SQLite
+        implementation "org.xerial:sqlite-jdbc:$sqlite_driver_version"
+        //H2
+        implementation "com.h2database:h2:1.4.200"
+
+        //GSON
+        implementation "com.google.code.gson:gson:$gson_version"
+
+        ///////////////////////////////////////////////////////////////////////////
+        // Tool
+        ///////////////////////////////////////////////////////////////////////////
+
+        //Lombok
+        compileOnly "org.projectlombok:lombok:$lombok_version"
+        annotationProcessor "org.projectlombok:lombok:$lombok_version"
+
+        //MyBatisGenerator插件依赖
+//        mybatisGenerator "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatis_spring_boot_version"
+//        mybatisGenerator "org.mybatis.generator:mybatis-generator-core:+"
+//        mybatisGenerator "mysql:mysql-connector-java:$mysql_driver_version"
+//        mybatisGenerator "org.xerial:sqlite-jdbc:$sqlite_driver_version"
+//        mybatisGenerator "tk.mybatis:mapper:$mybatis_mapper_version"
+
+    }
+
+    // 清除Jar
+    task clearJar(type: Delete) {
+        delete 'build/libs'
+    }
+}
+
+task cacheToLocalMavenRepository(type: Copy) {
+    from new File(gradle.gradleUserHomeDir, 'caches/modules-2/files-2.1')
+    into repositories.mavenLocal().url
+    eachFile {
+        List<String> parts = it.path.split('/')
+        it.path = (parts[0] + '/' + parts[1]).replace('.', '/') + '/' + parts[2] + '/' + parts[4]
+    }
+    includeEmptyDirs false
+}

@@ -1,0 +1,51 @@
+server:
+  port: 8696
+
+#spring settings
+spring:
+  application:
+    name: sentinel-dashboard-service
+  http:
+    encoding:
+      enabled: true
+      force: true
+      charset: UTF-8
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 127.0.0.1:8848
+#      config:
+#        # 服务地址
+#        server-addr: 127.0.0.1:8848
+#        file-extension: json
+#        prefix: sentinel-dashboard-service-provider
+
+
+
+#logging settings
+logging:
+  file: ./logs/csp/sentinel-dashboard.log
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+#    console: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n'
+  level:
+    org:
+      springframework:
+        web: INFO
+
+#auth settings
+auth:
+  # If auth.enabled: false, Sentinel console disable login
+  username: root
+  password: root
+  filter:
+    exclude-urls: '/,/auth/login,/auth/logout,/registry/machine,/version'
+    exclude-url-suffixes: 'htm,html,js,css,map,ico,ttf,woff,png'
+
+
+  # Inject the dashboard version. It's required to enable
+  # filtering in pom.xml for this resource file.
+# version
+sentinel:
+  dashboard:
+    version: 1.7.1

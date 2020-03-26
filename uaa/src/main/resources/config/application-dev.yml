@@ -1,0 +1,54 @@
+################################ 开发环境 ################################
+
+server:
+  port: 9896
+
+spring:
+  devtools:
+    restart:
+      # 开启热部署(刷新加载)
+      enabled: true
+  http:
+    converters:
+      preferred-json-mapper: jackson
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    driver-class-name: org.h2.Driver
+    # 运行
+    #    url: jdbc:h2:mem:provider_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:./uaa/src/main/resources/db/uaa_db;AUTO_SERVER=TRUE;FILE_LOCK=SOCKET
+    username: root
+    password: root
+    # 打包
+    #    url: jdbc:sqlite::provider-user:/db/user_provider_db
+    #    schema: classpath:sql/table.sql
+#    data: classpath:sql/data.sql
+    # SQL脚本文本编码
+    sql-script-encoding: UTF-8
+    initialization-mode: ALWAYS
+    hikari:
+      pool-name: 'hikari-pool'
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    # JPA配置
+    show-sql: true
+    # 自动根据Entity配置创建表
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+#  h2:
+#    console:
+#      enabled: true
+#      path: /console
+#      settings:
+#        trace: false
+#        web-allow-others: false
+
+
+
+logging:
+  level:
+    org:
+      hibernate: info

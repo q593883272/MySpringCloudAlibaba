@@ -1,0 +1,57 @@
+################################ 启动前配置 ################################
+
+
+spring:
+  application:
+    name: consumer-feign-sentinel-server-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        # 服务地址
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        prefix: consumer-feign-sentinel-service-provider
+#    sentinel:
+#      transport:
+#        dashboard: 127.0.0.1:8696
+#      datasource:
+#        # 文件方式
+#        ds1:
+#          file:
+#            file: classpath:flowrule.json
+#            data-type: json
+#            rule-type: flow
+#        # Nacos方式
+#        ds2:
+#          nacos:
+#            server-addr: 127.0.0.1:8848
+#            dataId: sentinel-consumer-feign-provider
+#            groupId: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: flow
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata-tx-service-group
+
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: '*'
+
+
+
+
+
+
+

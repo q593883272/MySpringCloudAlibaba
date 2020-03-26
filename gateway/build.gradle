@@ -1,0 +1,30 @@
+// 模块名
+archivesBaseName = 'gateway'
+
+// 模块说明
+description = "网关模块"
+
+//项目依赖
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Gateway
+    implementation "org.springframework.cloud:spring-cloud-gateway-webflux"
+    implementation "org.springframework.cloud:spring-cloud-starter-gateway"
+//    implementation "org.springframework:spring-webflux:5.2.4.RELEASE"
+//    implementation 'io.reactivex.rxjava2:rxjava:2.2.19'
+    implementation "io.reactivex:rxjava-reactive-streams:1.2.1"
+
+
+    //OAuth2
+    implementation 'org.springframework.security:spring-security-config'
+    implementation 'org.springframework.security:spring-security-oauth2-jose'
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+    implementation 'org.springframework.security:spring-security-oauth2-resource-server'
+
+    //Sentinel
+//    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel"
+//    implementation "com.alibaba.cloud:spring-cloud-alibaba-sentinel-gateway"
+//    implementation "com.alibaba.csp:sentinel-datasource-nacos"
+
+}

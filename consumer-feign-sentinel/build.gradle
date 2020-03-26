@@ -1,0 +1,43 @@
+// 模块名
+archivesBaseName = 'consumer-feign-sentinel'
+
+// 模块说明
+description = "服务消费者模块"
+
+//项目依赖
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Web
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        //Undertow
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        implementation "org.springframework.boot:spring-boot-starter-undertow"
+    }
+
+    //JDBC
+    implementation "org.springframework.boot:spring-boot-starter-jdbc"
+
+    //OAuth2
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+
+
+    //Stream Reactive
+//    implementation "org.springframework.cloud:spring-cloud-stream-reactive"
+//    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+    
+    
+    
+    //Open Feign
+    implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+
+//    //Sentinel
+//    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-sentinel"
+//    implementation "com.alibaba.csp:sentinel-datasource-nacos"
+
+//    implementation "com.alibaba.cloud:alibaba-sentinel-spring-cloud-starter"
+
+    //Seata
+    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-seata"
+
+}

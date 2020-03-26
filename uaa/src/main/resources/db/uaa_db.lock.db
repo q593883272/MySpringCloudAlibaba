@@ -1,0 +1,8 @@
+#FileLock
+#Wed Mar 25 15:49:34 CST 2020
+hostName=Raven-Machine
+id=17110aaf553d36f1c3715b7b15cb6203651226ae19a
+ipAddress=192.168.31.246
+method=socket
+port=57098
+server=192.168.31.246\:57099

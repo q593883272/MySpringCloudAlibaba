@@ -1,0 +1,38 @@
+################################ 启动前配置 ################################
+
+
+spring:
+  application:
+    name: user-provider-server-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        # 服务地址
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        prefix: user-provider-service-provider
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata-tx-service-group
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+
+
+
+
+

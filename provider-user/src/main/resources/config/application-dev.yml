@@ -1,0 +1,75 @@
+################################ 开发环境 ################################
+
+server:
+  port: 8999
+
+spring:
+  devtools:
+    restart:
+      # 开启热部署(刷新加载)
+      enabled: true
+  http:
+    converters:
+      preferred-json-mapper: gson
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  gson:
+    #    default-property-inclusion: non_null
+    # JSON中时间的格式化样式
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialize-nulls: false
+    pretty-printing: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    # 运行
+    #    url: jdbc:h2:mem:provider_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:./provider-user/src/main/resources/db/user_provider_db;AUTO_SERVER=TRUE;FILE_LOCK=SOCKET
+    username: root
+    password: root
+    # 打包
+    #    url: jdbc:sqlite::provider-user:/db/user_provider_db
+    #    schema: classpath:sql/table.sql
+    #    data: classpath:sql/data.sql
+    # SQL脚本文本编码
+    sql-script-encoding: UTF-8
+    initialization-mode: ALWAYS
+    hikari:
+      pool-name: 'hikari-pool'
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    # JPA配置
+    show-sql: true
+    # 自动根据Entity配置创建表
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+  security:
+    oauth2:
+      client:
+        provider:
+          authorization-uri: 'http://127.0.0.1:9896/oauth/authorize'
+          token-uri: 'http://127.0.0.1:9896/oauth/token'
+          jwt-key-uri: 'http://127.0.0.1:9896/.well-known/jwks.json '
+        registration:
+          client-id: appClient
+          client-secret: secret
+          authorization-grant-type: 'authorization_code,client_credentials,password,refresh_token'
+          redirect-uri-template: 'http://www.baidu.com'
+          clientName: gateway
+      resourceserver:
+        jwt:
+          jwk-set-uri: 'http://127.0.0.1:9896/.well-known/jwks.json'
+#  h2:
+#    console:
+#      enabled: true
+#      path: /console
+#      settings:
+#        trace: false
+#        web-allow-others: false
+
+
+logging:
+  level:
+    org:
+      hibernate: info

@@ -1,0 +1,62 @@
+// 模块名
+archivesBaseName = 'provider-user'
+
+// 模块说明
+description = "用户服务提供者模块"
+
+docker {
+    // Image version. Optional, default = latest
+    imageVersion = version
+    // Image name. Optional, default = project.name
+    imageName = name
+    // Docker repository. Optional, default == no repository
+    dockerRepository = 'sglahn'
+    // Path or URL referring to the build context. Optional, default = ${project.projectDir.getAbsolutePath()}
+    buildContext = 'build-context'
+    // Path to the Dockerfile to use (relative to ${project.projectDir}). Optional, default = ${buildContext}/Dockerfile
+    dockerFile = 'src/main/docker/Dockerfile'
+    // Add a list of tags for an image. Optional, default = $imageVersion
+    tags = [version, 'latest', 'Hello']
+    // Set metadata for an image. Optional, default = no label applied
+    labels = ['branch=master', 'mylabel=test']
+    // name and value of a buildarg. Optional, default = no build arguments
+    buildArgs = ['http_proxy="http://some.proxy.url"']
+    // Always remove intermediate containers, even after unsuccessful builds. Optional, default = false
+    removeIntermediateContainers = true
+    // Isolation specifies the type of isolation technology used by containers. Optional, default = default
+    isolation = 'default'
+    // Do not use cache when building the image. Optional, default = false
+    noCache = true
+    // Always attempt to pull a newer version of the image. Optional, default false
+    pull = true
+    // Suppress the build output and print image ID on success. Optional, default = true
+    quiet = false
+    // Remove image in local repository after push to a remote repository, useful for builds on CI agents. Optional, default = false
+    removeImagesAfterPush = true
+}
+
+//项目依赖
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //Web
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        //Undertow
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        implementation "org.springframework.boot:spring-boot-starter-undertow"
+    }
+
+    // JPA
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    //Stream Reactive
+    implementation "org.springframework.cloud:spring-cloud-stream-reactive:2.2.1.RELEASE"
+    implementation 'org.springframework.cloud:spring-cloud-starter-stream-rabbit'
+
+    //OAuth2
+    implementation 'org.springframework.security:spring-security-oauth2-client'
+
+    //Seata
+    implementation "com.alibaba.cloud:spring-cloud-starter-alibaba-seata"
+
+}

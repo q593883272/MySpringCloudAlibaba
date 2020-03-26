@@ -1,0 +1,53 @@
+################################ 开发环境 ################################
+
+server:
+  port: 8080
+
+spring:
+  devtools:
+    restart:
+      # 开启热部署(刷新加载)
+      enabled: true
+  http:
+    converters:
+      preferred-json-mapper: gson
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+  gson:
+    #    default-property-inclusion: non_null
+    # JSON中时间的格式化样式
+    date-format: yyyy-MM-dd HH:mm:ss
+    serialize-nulls: false
+    pretty-printing: true
+#  datasource:
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:./provider-user/src/main/resources/db/user_provider_db;AUTO_SERVER=TRUE;FILE_LOCK=SOCKET
+#    username: root
+#    password: root
+
+  cloud:
+    stream:
+      #BindingServiceProperties
+      bindings:
+        myInput:
+          #kafka中的topic， rabbit中的exchange
+          #消费者接收信息通道
+          destination: input_1
+          #消费组，多实例处于同一个消费组的消费者，消息只会被其中一个消费者实例消费
+          #默认情况下每个消费者处于独立的匿名组
+          group: consumer_g_1
+            #consumer:
+            #开启消费分区，根据某个标识，将有一类相同标识的数据由同一个消费者消费
+            #partitioned: true
+            #实例数和实例索引，不同的实例instanceIndex必须不同
+          #instanceCount: 2
+          #instanceIndex: 1
+        myOutput:
+          #kafka中的topic， rabbit中的exchange
+          #消费者回馈信息通道
+          destination: output_1
+
+feign:
+  hystrix:
+    enabled: true
+

@@ -1,0 +1,8 @@
+rootProject.name = 'MySpringCloudAlibaba'
+include 'consumer-feign-sentinel'
+include 'gateway'
+include 'provider-user'
+include 'provider-resource'
+include 'sentinel-dashboard'
+include 'uaa'
+

@@ -1,0 +1,29 @@
+################################ 启动前配置 ################################
+
+
+spring:
+  application:
+    name: uaa-server-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        # 服务地址
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        prefix: uaa-service-provider
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+
+
+
+
+
+

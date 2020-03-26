@@ -1,0 +1,61 @@
+################################ 启动前配置 ################################
+
+
+spring:
+  application:
+    name: resource-provider-server-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        # 服务地址
+        server-addr: 127.0.0.1:8848
+        file-extension: yml
+        prefix: resource-provider-service-provider
+    alibaba:
+      seata:
+        tx-service-group: ${spring.application.name}-seata-tx-service-group
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+#seata:
+#  enabled: true
+#  application-id: ${spring.application.name}-seata-id
+#  tx-service-group: ${spring.cloud.alibaba.seata.tx-service-group}
+#  service:
+#    vgroup-mapping:
+#      my_test_tx_group: default
+#    grouplist:
+#      default: 127.0.0.1:8091
+#    disable-global-transaction: false
+#  config:
+#    type: file
+#    file:
+#      name: file.conf
+#  registry:
+#    type: file
+
+
+
+
+
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        # 暴露的端点
+#        include: '*'
+#  endpoint:
+#    #开启shutdown
+#    shutdown:
+#      enabled: true
+
+
+
+
+
