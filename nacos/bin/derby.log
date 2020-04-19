@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Wed Mar 25 12:11:57 CST 2020:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0171-0fe3-c602-000011a61fd8 
-on database directory D:\Development\MyJob\Example\Java\Spring\Cloud\MySpringCloudAlibaba\nacos\data\derby-data with class loader org.springframework.boot.loader.LaunchedURLClassLoader@2e5d6d97 
-Loaded from jar:file:/D:/Development/MyJob/Example/Java/Spring/Cloud/MySpringCloudAlibaba/nacos/target/nacos-server.jar!/BOOT-INF/lib/derby-10.10.1.1.jar!/
+Sun Apr 19 15:04:25 CST 2020:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.1.1 - (1458268): instance a816c00e-0171-9140-a56c-00000be58be0 
+on database directory D:\Development\Job\Git\MySpringCloudAlibaba\nacos\data\derby-data with class loader org.springframework.boot.loader.LaunchedURLClassLoader@685f4c2e 
+Loaded from jar:file:/D:/Development/Job/Git/MySpringCloudAlibaba/nacos/target/nacos-server.jar!/BOOT-INF/lib/derby-10.10.1.1.jar!/
 java.vendor=Oracle Corporation
-java.runtime.version=1.8.0_181-b13
-user.dir=D:\Development\MyJob\Example\Java\Spring\Cloud\MySpringCloudAlibaba\nacos\bin
-os.name=Windows 10
+java.runtime.version=1.8.0_131-b11
+user.dir=D:\Development\Job\Git\MySpringCloudAlibaba\nacos\bin
+os.name=Windows 7
 os.arch=amd64
-os.version=10.0
+os.version=6.1
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

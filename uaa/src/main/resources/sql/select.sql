@@ -51,7 +51,7 @@ select distinct r.* from role r
        left join user_status us on us.username = usr.username
        left join user_group_user_status ugus
        left join user_group ug on ug.id = ugr.user_group_id and ug.id = ugus.user_group_id
-where us.username = 'q593883272'
+where us.username = 'q593883272';
 
 
 

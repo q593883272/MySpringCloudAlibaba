@@ -1,0 +1,40 @@
+// 模块名
+archivesBaseName = 'common'
+
+// 模块说明
+description = "通用依赖模块"
+
+//依赖仓库
+repositories {
+    google()
+}
+
+//mainClassName = 'com.raven.cloud.common.App'
+
+jar {
+    manifest {
+        attributes('Main-Class': 'com.raven.cloud.common.App')
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+//项目依赖
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //Web
+    implementation("org.springframework.boot:spring-boot-starter-web") {
+        //Undertow
+        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
+        implementation "org.springframework.boot:spring-boot-starter-undertow"
+    }
+
+    // JPA
+    implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+
+    //MyBatis
+    implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${rootProject.ext.mybatis_spring_boot_version}"
+    implementation "tk.mybatis:mapper-spring-boot-starter:${rootProject.ext.mybatis_mapper_spring_version}"
+}

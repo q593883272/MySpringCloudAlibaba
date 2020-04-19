@@ -1,6 +1,9 @@
 package com.raven.cloud.uaa.config.oauth2;
 
-import lombok.AllArgsConstructor;
+import com.raven.cloud.uaa.model.po.user.UserInfo;
+import com.raven.cloud.uaa.model.po.user.UserStatus;
+import com.raven.cloud.uaa.service.user.UserInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,24 +14,35 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Arrays;
 
 @Component
-@AllArgsConstructor
+
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserDetailsPasswordEncoder passwordEncoder;
+    private final UserInfoService userInfoService;
+
+    @Autowired
+    public UserDetailsServiceImpl(UserDetailsPasswordEncoder passwordEncoder, UserInfoService userInfoService) {
+        this.passwordEncoder = passwordEncoder;
+        this.userInfoService = userInfoService;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         if (username == null || username.isEmpty()) {
             throw new UsernameNotFoundException("username is empty!");
         }
-        switch (username) {
-            case "admin":
-                return new User("admin", passwordEncoder.encode("admin"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
-            case "root":
-                return new User("root", passwordEncoder.encode("root"), Arrays.asList(new SimpleGrantedAuthority("ROLE_ROOT")));
-            case "q593883272":
-                return new User("q593883272", passwordEncoder.encode("88888888"), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+
+        UserInfo userInfo = userInfoService.findByField(UserStatus.Fields.username, username);
+
+        if (userInfo == null) {
+            throw new UsernameNotFoundException("username is not found!");
         }
+
+        if (username.equals(userInfo.getUsername())){
+//            return new User(userInfo.getUsername(), passwordEncoder.encode(userInfo.get()), Arrays.asList(new SimpleGrantedAuthority("ROLE_ADMIN")));
+        }
+
         throw new UsernameNotFoundException("账户不存在!");
     }
 }

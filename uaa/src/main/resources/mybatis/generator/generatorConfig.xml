@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!-- 数据库驱动 -->
+    <classPathEntry location="C:\Users\Administrator\.m2\repository\org\xerial\sqlite-jdbc\3.28.0\sqlite-jdbc-3.28.0.jar"/>
+
+    <context id="Oracle" targetRuntime="MyBatis3">
+
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- 数据库链接地址账号密码 -->
+        <jdbcConnection driverClass="org.sqlite.JDBC"
+                        connectionURL="jdbc:sqlite:src/main/resources/db/resource_db"/>
+
+        <!-- 生成Model类存放位置 -->
+        <javaModelGenerator targetPackage="com.raven.cloud.resource.entity" targetProject="src/test/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- 生成映射文件存放位置 -->
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="src/test/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- 生成DAO类存放位置 -->
+        <!-- type类型
+             ANNOTATEDMAPPER 接口+注解+SQLProvider的方式生成
+             XMLMAPPER 接口+XMLMapper的方式生成
+             MIXEDMAPPER 接口+注解+MLMapper的方式生成
+             SPRING -->
+        <javaClientGenerator targetPackage="com.raven.cloud.resource.dao" targetProject="src/test/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- 资源表 -->
+        <table tableName="file" domainObjectName="File" sqlProviderName="FileProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String"/>
+            <columnOverride column="path" property="path" javaType="java.lang.String"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+        <table tableName="menu" domainObjectName="Menu" sqlProviderName="MenuProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="url" property="url" javaType="java.lang.String"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String"/>
+            <columnOverride column="icon" property="icon" javaType="java.lang.String"/>
+            <columnOverride column="sequence" property="sequence" javaType="java.lang.Integer"/>
+            <columnOverride column="parent_id" property="parentId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+        <table tableName="operation" domainObjectName="Operation" sqlProviderName="OperationProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String"/>
+            <columnOverride column="code" property="code" javaType="java.lang.String"/>
+            <columnOverride column="block_url" property="blockUrl" javaType="java.lang.String"/>
+            <columnOverride column="parent_id" property="parentId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="operation_log" domainObjectName="OperationLog" sqlProviderName="OperationLogProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="operation_id" property="operationId" javaType="java.lang.String"/>
+            <columnOverride column="content" property="content" javaType="java.lang.String"/>
+            <columnOverride column="username" property="username" javaType="java.lang.String"/>
+            <columnOverride column="date_time" property="dateTime" javaType="java.util.Date"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="power" domainObjectName="Power" sqlProviderName="PowerProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="type" property="type" javaType="java.lang.String"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="power_file" domainObjectName="PowerFile" sqlProviderName="PowerFileProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="power_id" property="powerId" javaType="java.lang.Integer"/>
+            <columnOverride column="file_Id" property="fileId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="power_menu" domainObjectName="PowerMenu" sqlProviderName="PowerMenuProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="power_id" property="powerId" javaType="java.lang.Integer"/>
+            <columnOverride column="menu_id" property="menuId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="power_operation" domainObjectName="PowerOperation" sqlProviderName="PowerOperationProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="power_id" property="powerId" javaType="java.lang.Integer"/>
+            <columnOverride column="operation_id" property="operationId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <!-- 角色 -->
+
+        <table tableName="role" domainObjectName="Role" sqlProviderName="RoleProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="role_power" domainObjectName="RolePower" sqlProviderName="RolePowerProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="role_id" property="roleId" javaType="java.lang.Integer"/>
+            <columnOverride column="power_id" property="powerId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="user_info" domainObjectName="UserInfo" sqlProviderName="UserInfoProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="username" property="username" javaType="java.lang.String"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String"/>
+            <columnOverride column="gender" property="gender" javaType="java.lang.Integer"/>
+            <columnOverride column="id_card" property="idCard" javaType="java.lang.String"/>
+            <columnOverride column="phone" property="phone" javaType="java.lang.String"/>
+            <columnOverride column="email" property="email" javaType="java.lang.String"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="user_status" domainObjectName="UserStatus" sqlProviderName="UserStatusProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="username" property="username" javaType="java.lang.String"/>
+            <columnOverride column="password" property="password" javaType="java.lang.String"/>
+            <columnOverride column="account_non_expired" property="accountNonExpired" javaType="java.lang.Boolean"/>
+            <columnOverride column="account_non_locked" property="accountNonLocked" javaType="java.lang.Boolean"/>
+            <columnOverride column="credentials_non_expired" property="credentialsNonExpired" javaType="java.lang.Boolean"/>
+            <columnOverride column="enabled" property="enabled" javaType="java.lang.Boolean"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="user_status_role" domainObjectName="UserStatusRole" sqlProviderName="UserStatusRoleProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="username" property="username" javaType="java.lang.String"/>
+            <columnOverride column="role_id" property="roleId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="user_group" domainObjectName="UserGroup" sqlProviderName="UserGroupProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="name" property="name" javaType="java.lang.String"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="user_group_role" domainObjectName="UserGroupRole" sqlProviderName="UserGroupRoleProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="user_group_id" property="userGroupId" javaType="java.lang.Integer"/>
+            <columnOverride column="role_id" property="roleId" javaType="java.lang.Integer"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+        <table tableName="user_group_user_status" domainObjectName="UserGroupUserStatus" sqlProviderName="UserGroupUserStatusProvider">
+            <columnOverride column="id" property="id" javaType="java.lang.Integer"/>
+            <columnOverride column="user_group_id" property="userGroupId" javaType="java.lang.Integer"/>
+            <columnOverride column="username" property="username" javaType="java.lang.String"/>
+            <columnOverride column="version" property="version" javaType="java.lang.Integer"/>
+            <columnOverride column="update_user" property="updateUser" javaType="java.lang.String"/>
+            <columnOverride column="update_date" property="updateDate" javaType="java.util.Date"/>
+            <columnOverride column="create_user" property="createUser" javaType="java.lang.String"/>
+            <columnOverride column="create_date" property="createDate" javaType="java.util.Date"/>
+        </table>
+
+
+    </context>
+
+
+</generatorConfiguration>

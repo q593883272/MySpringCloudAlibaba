@@ -26,7 +26,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                 .antMatchers("/.well-known/jwks.json").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().permitAll();
+
+        http.csrf().disable();
     }
 
     @Override

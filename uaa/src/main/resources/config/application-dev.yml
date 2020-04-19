@@ -13,6 +13,8 @@ spring:
       preferred-json-mapper: jackson
   mvc:
     date-format: yyyy-MM-dd HH:mm:ss
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   datasource:
     driver-class-name: org.h2.Driver
     # 运行
@@ -23,7 +25,7 @@ spring:
     # 打包
     #    url: jdbc:sqlite::provider-user:/db/user_provider_db
     #    schema: classpath:sql/table.sql
-#    data: classpath:sql/data.sql
+    data: classpath:sql/data.sql
     # SQL脚本文本编码
     sql-script-encoding: UTF-8
     initialization-mode: ALWAYS
@@ -46,6 +48,12 @@ spring:
 #        trace: false
 #        web-allow-others: false
 
+# MyBatis配置
+mybatis:
+  # 设置映射类型(ResultMap)下所在的包名
+  type-aliases-package: com.raven.cloud.uaa.model.po
+  # 设置映射文件所在的资源路径
+  mapper-locations: classpath*:mybatis/mapper/*.xml
 
 
 logging:

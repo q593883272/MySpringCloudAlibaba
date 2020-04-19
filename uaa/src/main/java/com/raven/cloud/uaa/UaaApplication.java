@@ -1,5 +1,7 @@
 package com.raven.cloud.uaa;
 
+import com.raven.cloud.uaa.model.po.menu.Menu;
+import com.raven.cloud.uaa.model.po.user.UserInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
